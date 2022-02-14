@@ -12,7 +12,7 @@ def prequential_learn(model, learner, args, device):
 
   chunk_num = 70
   for chunk_idx in range(chunk_num):
-      
+      print('=== Chunk {} ==='.format(chunk_idx+1))
       # == Define Dataset & Dataloder =====
       data = read_csv('dataset/permutedmnist.csv', sep=',', header=None).values 
       chunk_data = data[chunk_idx*1000:(chunk_idx+1)*1000]
@@ -37,13 +37,13 @@ def prequential_learn(model, learner, args, device):
         min_loss = float('inf')
         
         for epoch_item in range(args.start_epoch, args.epochs):
-          print('=== Epoch {} ==='.format(epoch_item+1))
+          # print('=== Epoch {} ==='.format(epoch_item+1))
           train_loss = 0.
           for i, batch in enumerate(train_dataloader):
             
             loss = learner.train(model, batch, optim, args)
             train_loss += loss
-            print('Loss: {:.4f}'.format(loss))
+          print('train_loss: {:.4f}'.format(train_loss))
       
         # Claculate Pts.
         print('Prototypes are calculating ...')
