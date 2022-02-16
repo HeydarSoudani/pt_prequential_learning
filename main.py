@@ -5,7 +5,7 @@ import numpy as np
 
 from models import MLP
 from losses import MetricLoss
-from learner import BatchLearner
+from learners.batch_learner import BatchLearner
 from trainer import prequential_learn
 
 ## == Params =========================
