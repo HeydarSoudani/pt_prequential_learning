@@ -106,7 +106,7 @@ class BatchLearner:
 
     return total_loss, total_dist_acc, total_cls_acc
 
-  def calculate_prototypes(self, model, dataloader):
+  def calculate_prototypes(self, model, dataloader, args):
     model.eval()
     
     all_features = []
