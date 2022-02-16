@@ -43,6 +43,11 @@ class BatchLearner:
     outputs, features = model.forward(images)
     loss = self.criterion(outputs, labels)
     
+    ## == Backward ==========================
+    loss.backward()
+    torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
+    optimizer.step()
+
     ## == Calculate Prototypes ==============
     unique_label = torch.unique(labels)
 
@@ -55,10 +60,6 @@ class BatchLearner:
     for idx, l in enumerate(unique_label):
       self.prototypes[l.item()] = new_prototypes[idx].reshape(1, -1).detach()
 
-    ## == Backward ==========================
-    loss.backward()
-    torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
-    optimizer.step()
 
     return loss.detach().item()
   
