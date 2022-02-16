@@ -1,6 +1,7 @@
 from torch.optim import SGD, Adam
 from torch.utils.data import DataLoader
 from pandas import read_csv
+import numpy as np
 import time 
 from dataset import ChunkDataset
 
