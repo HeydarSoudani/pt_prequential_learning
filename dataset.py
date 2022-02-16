@@ -21,7 +21,6 @@ class ChunkDataset(Dataset):
     self.data = []
     self.labels = np.argmax(data[:, -10:], axis=1)
     self.label_set = set(self.labels)
-    print('label_set: {}'.format(self.label_set))
   
     for idx, s in enumerate(data):
       # x = (tensor(s[:-1], dtype=torch.float) / 255).view(self.tensor_view)
