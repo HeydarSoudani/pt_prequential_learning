@@ -31,6 +31,9 @@ parser.add_argument('--batch_size', type=int, default=16, help='')
 parser.add_argument('--dropout', type=float, default=0.0, help='')
 parser.add_argument('--hidden_dims', type=int, default=128, help='')
 
+# Prototype
+parser.add_argument('--beta', type=float, default=1.0, help='Update Prototype in Prototypical algorithm')
+
 # Loss function
 parser.add_argument("--lambda_1", type=float, default=1.0, help="Metric Coefficien in loss function")
 parser.add_argument("--lambda_2", type=float, default=1.0, help="CE Coefficient in loss function")
