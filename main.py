@@ -75,6 +75,7 @@ if not os.path.exists(args.save):
 ## == Model ============================
 model = MLP(784, args)
 model.to(device)
+print(model)
 
 criterion = MetricLoss(device, args)
 learner = BatchLearner(criterion, device, args)
