@@ -12,7 +12,8 @@ class MetricLoss(torch.nn.Module):
     self.miner = miners.BatchEasyHardMiner() # for ContrastiveLoss 
     # self.metric = losses.NTXentLoss(temperature=0.07)
     # self.metric = losses.ContrastiveLoss(pos_margin=0, neg_margin=1)
-    self.metric = losses.TripletMarginLoss(margin=0.05)
+    # self.metric = losses.TripletMarginLoss(margin=0.05)
+    self.metric = losses.CosFaceLoss(args.n_classes, args.hidden_dims, margin=0.35, scale=64)
     
     
   def forward(self, logits, labels):
