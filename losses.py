@@ -20,11 +20,11 @@ class MetricLoss(torch.nn.Module):
     cls_loss = self.ce(logits, labels.long())
     
     # loss with miner
-    miner_output = self.miner(logits, labels.long())
-    metric_loss = self.metric(logits, labels.long(), miner_output)
+    # miner_output = self.miner(logits, labels.long())
+    # metric_loss = self.metric(logits, labels.long(), miner_output)
 
     # loss without minier
-    # metric_loss = self.metric(logits, labels.long())
+    metric_loss = self.metric(logits, labels.long())
 
     return self.lambda_1 * metric_loss +\
            self.lambda_2 * cls_loss
