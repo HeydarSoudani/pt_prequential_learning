@@ -7,8 +7,8 @@ from dataset import ChunkDataset
 
 
 def prequential_learn(model, learner, args, device):
-  model.to(device)
-  optim = SGD(model.parameters(), lr=0.001, momentum=0.95)
+
+  optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
   chunk_num = 70
   for chunk_idx in range(chunk_num):
@@ -18,7 +18,7 @@ def prequential_learn(model, learner, args, device):
       chunk_data = data[chunk_idx*1000:(chunk_idx+1)*1000]
       dataset = ChunkDataset(chunk_data, args)
       test_dataloader = DataLoader(dataset=dataset, batch_size=1000, shuffle=False)
-      train_dataloader = DataLoader(dataset=dataset, batch_size=16, shuffle=True)
+      train_dataloader = DataLoader(dataset=dataset, batch_size=args.batch_size, shuffle=True)
 
       # == testing ========================
       if chunk_idx != 0:

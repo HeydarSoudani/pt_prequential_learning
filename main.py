@@ -25,6 +25,7 @@ parser.add_argument(
 # train phase
 parser.add_argument('--start_epoch', type=int, default=0, help='')
 parser.add_argument('--epochs', type=int, default=1, help='')
+parser.add_argument('--batch_size', type=int, default=16, help='')
 
 # Network
 parser.add_argument('--dropout', type=float, default=0.0, help='')
@@ -35,6 +36,9 @@ parser.add_argument("--lambda_1", type=float, default=1.0, help="Metric Coeffici
 parser.add_argument("--lambda_2", type=float, default=1.0, help="CE Coefficient in loss function")
 
 # Optimizer
+parser.add_argument('--lr', type=float, default=0.1, help='')
+parser.add_argument('--momentum', type=float, default=0.9, help='')
+parser.add_argument('--wd', type=float, default=1e-4, help='')  #l2 regularization
 parser.add_argument('--grad_clip', type=float, default=0.1)   # before was 5.0
 
 # Device and Randomness
@@ -69,7 +73,7 @@ if not os.path.exists(args.save):
   os.makedirs(args.save)
 
 ## == Model ============================
-model = MLP(784, args.hidden_dims, 10, args)
+model = MLP(784, args)
 model.to(device)
 
 criterion = MetricLoss(device, args)
