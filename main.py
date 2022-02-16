@@ -28,6 +28,7 @@ parser.add_argument('--epochs', type=int, default=1, help='')
 
 # Network
 parser.add_argument('--dropout', type=float, default=0.2, help='')
+parser.add_argument('--hidden_dims', type=int, default=128, help='')
 
 # Loss function
 parser.add_argument("--lambda_1", type=float, default=1.0, help="Metric Coefficien in loss function")
@@ -46,7 +47,6 @@ parser.add_argument('--save', type=str, default='saved/', help='')
 args = parser.parse_args()   
 
 args.n_classes = 10
-args.hidden_dims = 64
 
 ## == Device ===========================
 if torch.cuda.is_available():
