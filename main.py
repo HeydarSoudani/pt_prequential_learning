@@ -39,7 +39,7 @@ parser.add_argument("--lambda_2", type=float, default=1.0, help="CE Coefficient 
 parser.add_argument('--lr', type=float, default=0.1, help='')
 parser.add_argument('--momentum', type=float, default=0.9, help='')
 parser.add_argument('--wd', type=float, default=1e-4, help='')  #l2 regularization
-parser.add_argument('--grad_clip', type=float, default=5.0)   # before was 5.0
+parser.add_argument('--grad_clip', type=float, default=0.1)   # before was 5.0
 
 # Device and Randomness
 parser.add_argument('--cuda', action='store_true',help='use CUDA')

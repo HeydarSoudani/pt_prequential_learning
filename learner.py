@@ -57,7 +57,7 @@ class BatchLearner:
 
     ## == Backward ==========================
     loss.backward()
-    torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
+    # torch.nn.utils.clip_grad_norm_(model.parameters(), args.grad_clip)
     optimizer.step()
 
     return loss.detach().item()
