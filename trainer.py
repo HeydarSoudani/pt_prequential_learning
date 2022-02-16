@@ -16,7 +16,7 @@ def prequential_learn(model, learner, args, device):
   for chunk_idx in range(chunk_num):
     print('=== Chunk {} ==='.format(chunk_idx+1))
     # == Define Dataset & Dataloder =====
-    data = read_csv('dataset/permutedmnist.csv', sep=',', header=None).values 
+    data = read_csv('dataset/{}.csv'.format(args.dataset), sep=',', header=None).values 
     chunk_data = data[chunk_idx*1000:(chunk_idx+1)*1000]
     dataset = ChunkDataset(chunk_data, args)
     test_dataloader = DataLoader(dataset=dataset, batch_size=1000, shuffle=False)

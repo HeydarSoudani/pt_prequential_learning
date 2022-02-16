@@ -15,10 +15,10 @@ parser.add_argument(
   type=str,
   choices=[
     'mnist',
-    'pmnist',
-    'rmnist',
+    'permutedmnist',
+    'rotatedmnist',
   ],
-  default='pmnist',
+  default='permutedmnist',
   help=''
 )
 
