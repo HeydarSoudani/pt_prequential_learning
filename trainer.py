@@ -47,5 +47,5 @@ def prequential_learn(model, learner, args, device):
       
         # Claculate Pts.
         # print('Prototypes are calculating ...')
-        learner.calculate_prototypes(model, train_dataloader)
+        # learner.calculate_prototypes(model, train_dataloader)
 

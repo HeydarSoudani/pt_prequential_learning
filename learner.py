@@ -44,16 +44,16 @@ class BatchLearner:
     loss = self.criterion(outputs, labels)
     
     ## == Calculate Prototypes ==============
-    # unique_label = torch.unique(labels)
+    unique_label = torch.unique(labels)
 
-    # batch_prototypes = compute_prototypes(features, labels)
-    # old_prototypes = torch.cat(
-    #   [self.prototypes[l.item()] for l in unique_label]
-    # )
-    # new_prototypes = args.beta * old_prototypes + (1 - args.beta) * batch_prototypes
+    batch_prototypes = compute_prototypes(features, labels)
+    old_prototypes = torch.cat(
+      [self.prototypes[l.item()] for l in unique_label]
+    )
+    new_prototypes = args.beta * old_prototypes + (1 - args.beta) * batch_prototypes
     
-    # for idx, l in enumerate(unique_label):
-    #   self.prototypes[l.item()] = new_prototypes[idx].reshape(1, -1).detach()
+    for idx, l in enumerate(unique_label):
+      self.prototypes[l.item()] = new_prototypes[idx].reshape(1, -1).detach()
 
     ## == Backward ==========================
     loss.backward()
