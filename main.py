@@ -27,7 +27,7 @@ parser.add_argument('--start_epoch', type=int, default=0, help='')
 parser.add_argument('--epochs', type=int, default=1, help='')
 
 # Network
-parser.add_argument('--dropout', type=float, default=0.2, help='')
+parser.add_argument('--dropout', type=float, default=0.0, help='')
 parser.add_argument('--hidden_dims', type=int, default=128, help='')
 
 # Loss function
