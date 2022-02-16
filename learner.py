@@ -60,7 +60,6 @@ class BatchLearner:
     # for idx, l in enumerate(unique_label):
     #   self.prototypes[l.item()] = new_prototypes[idx].reshape(1, -1).detach()
     ## =======================================
-
     return loss.detach().item()
   
   def evaluate(self, model, dataloader, known_labels):
@@ -107,7 +106,6 @@ class BatchLearner:
 
     return total_loss, total_dist_acc, total_cls_acc
 
-  
   def calculate_prototypes(self, model, dataloader):
     model.eval()
     
@@ -125,11 +123,15 @@ class BatchLearner:
       all_labels = torch.cat(all_labels, dim=0)
       
       unique_labels = torch.unique(all_labels)
-      pts = compute_prototypes(all_features, all_labels)
+      current_prototypes = compute_prototypes(all_features, all_labels)
+      old_prototypes = torch.cat(
+        [self.prototypes[l.item()] for l in unique_labels]
+      )
+      new_prototypes = args.beta * current_prototypes + (1 - args.beta) * old_prototypes
+    
       for idx, l in enumerate(unique_labels):
-        self.prototypes[l.item()] = pts[idx].reshape(1, -1).detach()
+        self.prototypes[l.item()] = new_prototypes[idx].reshape(1, -1).detach()
         
-
   def load(self, pkl_path):
     self.__dict__.update(torch.load(pkl_path))
 
