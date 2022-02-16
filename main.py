@@ -69,7 +69,7 @@ if not os.path.exists(args.save):
   os.makedirs(args.save)
 
 ## == Model ============================
-model = MLP(784, 64, 10, args)
+model = MLP(784, args.hidden_dims, 10, args)
 model.to(device)
 
 criterion = MetricLoss(device, args)
