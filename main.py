@@ -52,6 +52,7 @@ parser.add_argument('--beta', type=float, default=0.0, help='Update Prototype in
 # Loss function
 parser.add_argument("--lambda_1", type=float, default=1.0, help="Metric Coefficien in loss function")
 parser.add_argument("--lambda_2", type=float, default=1.0, help="CE Coefficient in loss function")
+parser.add_argument("--temp_scale", type=float, default=0.2, help="Temperature scale for DCE in loss function",)
 
 # Optimizer
 parser.add_argument('--lr', type=float, default=0.1, help='')
