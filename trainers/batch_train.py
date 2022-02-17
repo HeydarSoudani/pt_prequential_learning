@@ -1,4 +1,4 @@
-
+from torch.optim import SGD
 from torch.utils.data import DataLoader
 import time
 
@@ -12,7 +12,7 @@ def train(model,
 
   ## == Learn model ==============
   optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
-  
+
   global_time = time.time()
   min_loss = float('inf')
   try:

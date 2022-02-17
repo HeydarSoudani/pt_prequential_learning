@@ -1,4 +1,3 @@
-from torch.optim import SGD
 from torch.utils.data import DataLoader
 from pandas import read_csv
 import numpy as np

@@ -1,6 +1,7 @@
+from torch.optim import SGD
+from torch.utils.data import DataLoader
 import time
 
-from torch.utils.data import DataLoader
 from samplers.pt_sampler import PtSampler
 from samplers.reptile_sampler import ReptileSampler
 
@@ -27,7 +28,7 @@ def train(model,
 
   ## == Learn model ==============
   optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
-  
+
   global_time = time.time()
   min_loss = float('inf')
   try:
