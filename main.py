@@ -5,8 +5,11 @@ import numpy as np
 
 from models import MLP
 from losses import MetricLoss
-from learners.batch_learner import BatchLearner
 from trainer import prequential_learn
+from learners.pt_learner import PtLearner
+from learners.reptile_learner import ReptileLearner
+from learners.batch_learner import BatchLearner
+from losses import PtLoss, MetricLoss
 
 ## == Params =========================
 parser = argparse.ArgumentParser()
@@ -98,8 +101,17 @@ model = MLP(784, args)
 model.to(device)
 print(model)
 
-criterion = MetricLoss(device, args)
-learner = BatchLearner(criterion, device, args)
+## == Loss & Learner Definition =========
+if args.algorithm == 'prototype':
+  criterion = PtLoss(device, args)
+  learner = PtLearner(criterion, device, args)
+elif args.algorithm == 'reptile':
+  criterion = torch.nn.CrossEntropyLoss()
+  learner = ReptileLearner(criterion, device, args)
+elif args.algorithm == 'batch':
+  criterion = MetricLoss(device, args)
+  learner = BatchLearner(criterion, device, args)
+
 
 if __name__ == '__main__':
   prequential_learn(model, learner, args, device)
