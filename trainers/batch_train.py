@@ -11,6 +11,8 @@ def train(model,
   train_dataloader = DataLoader(dataset=dataset, batch_size=args.batch_size, shuffle=True)
 
   ## == Learn model ==============
+  optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+  
   global_time = time.time()
   min_loss = float('inf')
   try:

@@ -10,8 +10,6 @@ from trainers.episodic_train import train as episodic_train
 
 def prequential_learn(model, learner, args, device):
 
-  optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
-
   dist_accs = []  
   for chunk_idx in range(args.chunk_num):
     print('=== Chunk {} ==='.format(chunk_idx+1))
