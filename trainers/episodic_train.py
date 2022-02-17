@@ -33,7 +33,7 @@ def train(model,
   min_loss = float('inf')
   try:
     for epoch_item in range(args.start_epoch, args.epochs):
-      print('=== Epoch %d ===' % epoch_item)
+      # print('=== Epoch %d ===' % epoch_item)
       train_loss = 0.
       trainloader = iter(train_dataloader)
 
