@@ -17,16 +17,16 @@ class MLP(nn.Module):
     super(MLP, self).__init__()
     self.device = None
 
-    # self.hidden = nn.Sequential(nn.Linear(n_input, 100),
-    #                             nn.ReLU(True),
-    #                             nn.Dropout(args.dropout),
-    #                             nn.Linear(100, n_feature),
-    #                             nn.ReLU(True),
-    #                             nn.Dropout(args.dropout))
-    
-    self.hidden = nn.Sequential(nn.Linear(n_input, args.hidden_dims),
+    self.hidden = nn.Sequential(nn.Linear(n_input, 256),
+                                nn.ReLU(True),
+                                nn.Dropout(args.dropout),
+                                nn.Linear(256, args.hidden_dims),
                                 nn.ReLU(True),
                                 nn.Dropout(args.dropout))
+    # self.hidden = nn.Sequential(nn.Linear(n_input, args.hidden_dims),
+    #                             nn.ReLU(True),
+    #                             nn.Dropout(args.dropout))
+
     self.linear = nn.Linear(args.hidden_dims, args.n_classes, bias=bias)
     self.hidden.apply(Xavier)
   
