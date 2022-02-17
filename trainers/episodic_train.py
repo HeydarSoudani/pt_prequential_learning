@@ -1,3 +1,4 @@
+import time
 
 from torch.utils.data import DataLoader
 from samplers.pt_sampler import PtSampler
@@ -37,6 +38,20 @@ def train(model,
         batch = next(trainloader)
         loss = learner.train(model, batch, optim, miteration_item, args)
         train_loss += loss
+
+        ## == validation ==============
+        if (miteration_item + 1) % args.log_interval == 0:
+          
+          train_loss_total = train_loss / args.log_interval
+          train_loss = 0.0
+
+          # evalute on val_dataset
+          # ...
+
+          print('=== Time: %.2f, Step: %d, Train Loss: %f' % (
+            time.time()-global_time, miteration_item+1, train_loss_total))
+          
+          global_time = time.time()
   
   except KeyboardInterrupt:
     print('skipping training')  
