@@ -43,7 +43,7 @@ parser.add_argument('--shot', type=int, default=5, help='')
 parser.add_argument('--query_num', type=int, default=5, help='')
 
 # Network
-parser.add_argument('--dropout', type=float, default=0.0, help='')
+parser.add_argument('--dropout', type=float, default=0.2, help='')
 parser.add_argument('--hidden_dims', type=int, default=128, help='')
 
 # Prototype
