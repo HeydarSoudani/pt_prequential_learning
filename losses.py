@@ -54,7 +54,6 @@ class PtLoss(nn.Module):
     self.args = args
     self.lambda_1 = args.lambda_1
     self.lambda_2 = args.lambda_2
-    self.lambda_3 = args.lambda_3
     
     self.dce = DCELoss(device, gamma=args.temp_scale)
     self.ce = torch.nn.CrossEntropyLoss()
