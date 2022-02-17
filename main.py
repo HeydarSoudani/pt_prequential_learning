@@ -21,11 +21,23 @@ parser.add_argument(
   default='permutedmnist',
   help=''
 )
+parser.add_argument(
+  '--algorithm',
+  type=str,
+  choices=['batch', 'prototype', 'reptile'],
+  default='batch',
+  help=''
+)
 
 # train phase
 parser.add_argument('--start_epoch', type=int, default=0, help='')
 parser.add_argument('--epochs', type=int, default=1, help='')
 parser.add_argument('--batch_size', type=int, default=16, help='')
+parser.add_argument('--meta_iteration', type=int, default=3000, help='')
+parser.add_argument('--log_interval', type=int, default=100, help='must be less then meta_iteration parameter')
+parser.add_argument('--ways', type=int, default=5, help='')
+parser.add_argument('--shot', type=int, default=5, help='')
+parser.add_argument('--query_num', type=int, default=5, help='')
 
 # Network
 parser.add_argument('--dropout', type=float, default=0.0, help='')
@@ -54,6 +66,12 @@ parser.add_argument('--save', type=str, default='saved/', help='')
 args = parser.parse_args()   
 
 args.n_classes = 10
+
+## == additional params ================
+if args.dataset in ['mnist', 'permutedmnist']:
+  args.chunk_num = 70
+elif args.dataset in ['rotatedmnist']:
+  args.chunk_num = 65
 
 ## == Device ===========================
 if torch.cuda.is_available():

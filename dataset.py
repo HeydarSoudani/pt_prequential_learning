@@ -19,14 +19,14 @@ class ChunkDataset(Dataset):
     #   self.tensor_view = (3, 32, 32)
     self.transforms = transforms
     self.data = []
-    # self.labels = np.argmax(data[:, -10:], axis=1)
-    self.labels = data[:, -1]
+    self.labels = np.argmax(data[:, -10:], axis=1)
+    # self.labels = data[:, -1]
     self.label_set = set(self.labels)
   
     for idx, s in enumerate(data):
       # x = (tensor(s[:-1], dtype=torch.float) / 255).view(self.tensor_view)
-      # y = tensor(onehot2index(s[-10:]), dtype=torch.long)
-      x = (tensor(s[:-1], dtype=torch.float) / 255)
+      # y = tensor(onehot2index(s[-10:]), dtype=torch.long) 
+      x = (tensor(s[:-10], dtype=torch.float) / 255)
       y = tensor(self.labels[idx], dtype=torch.long)
       
       self.data.append((x, y))
