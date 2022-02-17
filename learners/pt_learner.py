@@ -73,7 +73,7 @@ class PtLearner:
 
     return loss.detach().item()
 
-  def evaluate(self, model, dataloader, known_labels, args):
+  def evaluate(self, model, dataloader, known_labels):
     model.eval()
     
     total_loss = 0.0
