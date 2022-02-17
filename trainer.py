@@ -12,7 +12,7 @@ def prequential_learn(model, learner, args, device):
 
   dist_accs = []  
   for chunk_idx in range(args.chunk_num):
-    print('=== Chunk {} ==='.format(chunk_idx+1))
+    print('=== Chunk {} ============'.format(chunk_idx+1))
     
     # == Define Dataset & test Dataloder ========
     data = read_csv('dataset/{}.csv'.format(args.dataset), sep=',', header=None).values 
