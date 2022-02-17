@@ -50,7 +50,7 @@ def prequential_learn(model, learner, args, device):
     
       # Claculate Pts.
       print('Prototypes are calculating ...')
-      learner.calculate_prototypes(model, train_dataloader, args)
+      learner.calculate_prototypes(model, test_dataloader, args)
   
   ## Overal evaluation
   dist_accs = np.array(dist_accs)
