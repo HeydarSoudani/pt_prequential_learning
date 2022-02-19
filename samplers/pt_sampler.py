@@ -35,6 +35,8 @@ class PtSampler(Sampler):
         self.n_query = n_query
         self.n_tasks = n_tasks
 
+        print(self.n_way)
+
         self.items_per_label = {}
         assert hasattr(
             dataset, "labels"
