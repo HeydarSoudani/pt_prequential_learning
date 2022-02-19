@@ -46,6 +46,9 @@ class PtSampler(Sampler):
                 self.items_per_label[label].append(item)
             else:
                 self.items_per_label[label] = [item]
+        
+        for label, items in self.items_per_label.items():
+            print('label: {}, item: {}'.format(label, items.shape)) 
 
     def __len__(self):
         return self.n_tasks
