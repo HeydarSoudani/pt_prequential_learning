@@ -21,10 +21,11 @@ class MyPretrainedResnet18(nn.Module):
     self.pretrained = models.resnet18(pretrained=True)
     
     # == 1-channel ===
-    self.pretrained = list(self.pretrained.children())
-    w = self.pretrained[0].weight
-    self.pretrained[0] = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
-    self.pretrained[0].weight = nn.Parameter(torch.mean(w, dim=1, keepdim=True))
+    arch = list(self.pretrained.children())
+    w = arch[0].weight
+    arch[0] = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+    arch[0].weight = nn.Parameter(torch.mean(w, dim=1, keepdim=True))
+    
     self.pretrained = nn.Sequential(*arch)
     
     # self.pretrained.fc = nn.Sequential(nn.Linear(512, args.hidden_dims),
