@@ -51,6 +51,7 @@ class MyPretrainedResnet18(nn.Module):
     
   def forward(self, samples):
     # x = samples.view(samples.size(0), -1)
+    print(samples.shape)
     x = self.pretrained(samples)
     print(x.shape)
     features = self.hidden(x)
