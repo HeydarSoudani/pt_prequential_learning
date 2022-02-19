@@ -27,10 +27,12 @@ class MyPretrainedResnet18(nn.Module):
         param.requires_grad = False
 
     # == Hidden layers =====================
-    self.hidden = nn.Sequential(nn.Linear(1000, args.hidden_dims),
+    self.hidden = nn.Sequential(nn.Linear(512, args.hidden_dims),
                                 nn.ReLU(True),
                                 nn.Dropout(args.dropout))
     self.hidden.apply(Xavier)
+    self.pretrained.fc = self.hidden
+
 
     # == Classifier ========================
     self.linear = nn.Linear(args.hidden_dims, args.n_classes, bias=bias)
