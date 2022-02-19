@@ -25,7 +25,7 @@ class ChunkDataset(Dataset):
   
     for idx, s in enumerate(data):
       x = (tensor(s[:-10], dtype=torch.float) / 255).view(self.tensor_view)
-      x = x.expand(3, 28, 28)
+      # x = x.expand(3, 28, 28)
       # y = tensor(onehot2index(s[-10:]), dtype=torch.long) 
       # x = (tensor(s[:-10], dtype=torch.float) / 255)
       y = tensor(self.labels[idx], dtype=torch.long)
