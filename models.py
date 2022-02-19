@@ -18,7 +18,7 @@ class MyPretrainedResnet18(nn.Module):
     super(MyPretrainedResnet18, self).__init__()
 
     # == Pretrain with torch ===============
-    self.pretrained = models.resnet18(pretrained=True)
+    self.pretrained = models.resnet18(pretrained=True, num_classes=256)
     
     # == 1-channel ===
     self.pretrained = list(self.pretrained.children())
@@ -27,25 +27,22 @@ class MyPretrainedResnet18(nn.Module):
     self.pretrained[0].weight = nn.Parameter(torch.mean(w, dim=1, keepdim=True))
     self.pretrained = nn.Sequential(*arch)
     
-    self.pretrained.fc = nn.Sequential(nn.Linear(512, args.hidden_dims),
-                                        nn.ReLU(True),
-                                        nn.Dropout(args.dropout))
+    # self.pretrained.fc = nn.Sequential(nn.Linear(512, args.hidden_dims),
+    #                                     nn.ReLU(True),
+    #                                     nn.Dropout(args.dropout))
 
 
     # == freeze all layers but the last fc =
     for name, param in self.pretrained.named_parameters():
-      # if name not in ['fc.weight', 'fc.bias']:
+      if name not in ['fc.weight', 'fc.bias']:
       # if not name.startswith(('layer4', 'fc')):
-      param.requires_grad = False
+        param.requires_grad = False
 
     # == Hidden layers =====================
-    # self.hidden = nn.Sequential(nn.Linear(512, args.hidden_dims),
-    #                             nn.ReLU(True),
-    #                             nn.Dropout(args.dropout))
-    # self.hidden.apply(Xavier)
-    # self.pretrained.fc = nn.Sequential(nn.Linear(512, args.hidden_dims),
-    #                             nn.ReLU(True),
-    #                             nn.Dropout(args.dropout))
+    self.hidden = nn.Sequential(nn.Linear(256, args.hidden_dims),
+                                nn.ReLU(True),
+                                nn.Dropout(args.dropout))
+    self.hidden.apply(Xavier)
 
 
     # == Classifier ========================
@@ -53,8 +50,8 @@ class MyPretrainedResnet18(nn.Module):
     
   def forward(self, samples):
     # x = samples.view(samples.size(0), -1)
-    features = self.pretrained(samples)
-    # features = self.hidden(x)
+    x = self.pretrained(samples)
+    features = self.hidden(x)
     outputs = self.linear(features)
     return outputs, features
 
