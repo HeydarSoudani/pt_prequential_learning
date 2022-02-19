@@ -53,7 +53,7 @@ if __name__ == '__main__':
   test_data = np.concatenate((X_test, y_test.reshape(-1, 1)), axis=1)
   all_data = np.concatenate((train_data, test_data), axis=0)
 
-  # np.random.shuffle(all_data)
+  np.random.shuffle(all_data)
   print('all data: {}'.format(all_data.shape))
   pd.DataFrame(all_data).to_csv(os.path.join(args.saved, args.dataset_file),
     header=None,
