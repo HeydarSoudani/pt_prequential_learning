@@ -18,7 +18,7 @@ def prequential_learn(model, learner, args, device):
     chunk_data = data[chunk_idx*1000:(chunk_idx+1)*1000]
     dataset = ChunkDataset(chunk_data, args)
     test_dataloader = DataLoader(dataset=dataset, batch_size=1000, shuffle=False)
-
+    print('Chunk labels: {}'.format(dataset.label_set))
 
     # == testing ========================
     if chunk_idx != 0:
