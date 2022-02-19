@@ -14,7 +14,7 @@ def Xavier(m):
 
 
 class MyPretrainedResnet18(nn.Module):
-  def __init__(self, args):
+  def __init__(self, args, bias=True):
     super(MyPretrainedResnet18, self).__init__()
 
     # == Pretrain with torch ===============

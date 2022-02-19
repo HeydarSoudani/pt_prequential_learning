@@ -18,7 +18,7 @@ args = parser.parse_args()
 
 # = Add some variables to args =========
 args.data_path = 'data/{}'.format(args.dataset)
-args.dataset_file = '{}_train.csv'.format(args.dataset)
+args.dataset_file = '{}.csv'.format(args.dataset)
 
 ## == Apply seed =======================
 np.random.seed(args.seed)
