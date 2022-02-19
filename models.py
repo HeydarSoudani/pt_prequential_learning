@@ -18,7 +18,7 @@ class MyPretrainedResnet18(nn.Module):
     super(MyPretrainedResnet18, self).__init__()
 
     # == Pretrain with torch ===============
-    self.pretrained = models.resnet18(pretrained=True, num_classes=256)
+    self.pretrained = models.resnet18(pretrained=True)
     
     # == 1-channel ===
     self.pretrained = list(self.pretrained.children())
@@ -39,7 +39,7 @@ class MyPretrainedResnet18(nn.Module):
         param.requires_grad = False
 
     # == Hidden layers =====================
-    self.hidden = nn.Sequential(nn.Linear(256, args.hidden_dims),
+    self.hidden = nn.Sequential(nn.Linear(1000, args.hidden_dims),
                                 nn.ReLU(True),
                                 nn.Dropout(args.dropout))
     self.hidden.apply(Xavier)
