@@ -19,7 +19,7 @@ class MyPretrainedResnet18(nn.Module):
 
     # == Pretrain with torch ===============
     self.pretrained = models.resnet18(pretrained=True)
-    self.pretrained.conv1 = Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+    self.pretrained.conv1 = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
     # == freeze all layers but the last fc =
     for name, param in self.pretrained.named_parameters():
       if name not in ['fc.weight', 'fc.bias']:
