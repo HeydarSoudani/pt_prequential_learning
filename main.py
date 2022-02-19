@@ -105,6 +105,11 @@ model = MyPretrainedResnet18(args)
 model.to(device)
 print(model)
 
+total_params = sum(p.numel() for p in model.parameters())
+total_params_trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+print('Total params: {}'.format(total_params))
+print('Total trainable params: {}'.format(total_params_trainable))
+
 ## == Loss & Learner Definition =========
 if args.algorithm == 'prototype':
   criterion = PtLoss(device, args)
