@@ -19,6 +19,14 @@ class MyPretrainedResnet18(nn.Module):
 
     # == Pretrain with torch ===============
     self.pretrained = models.resnet18(pretrained=True)
+    
+    # == 1-channel ===
+    self.pretrained = list(self.pretrained.children())
+    w = self.pretrained[0].weight
+    self.pretrained[0] = nn.Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False)
+    self.pretrained[0].weight = nn.Parameter(torch.mean(w, dim=1, keepdim=True))
+    self.pretrained = nn.Sequential(*arch)
+    
     self.pretrained.fc = nn.Sequential(nn.Linear(512, args.hidden_dims),
                                         nn.ReLU(True),
                                         nn.Dropout(args.dropout))
