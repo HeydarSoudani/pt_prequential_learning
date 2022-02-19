@@ -100,8 +100,8 @@ if not os.path.exists(args.save):
 
 ## == Model ============================
 # model = MLP(784, args)
-# model = MyPretrainedResnet18(args)
-model = Conv_4(args)
+model = MyPretrainedResnet18(args)
+# model = Conv_4(args)
 model.to(device)
 print(model)
 
