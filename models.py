@@ -19,19 +19,25 @@ class MyPretrainedResnet18(nn.Module):
 
     # == Pretrain with torch ===============
     self.pretrained = models.resnet18(pretrained=True)
-    
+    self.pretrained.fc = nn.Sequential(nn.Linear(512, args.hidden_dims),
+                                        nn.ReLU(True),
+                                        nn.Dropout(args.dropout))
+
+
     # == freeze all layers but the last fc =
     for name, param in self.pretrained.named_parameters():
-      if name not in ['fc.weight', 'fc.bias']:
+      # if name not in ['fc.weight', 'fc.bias']:
       # if not name.startswith(('layer4', 'fc')):
-        param.requires_grad = False
+      param.requires_grad = False
 
     # == Hidden layers =====================
-    self.hidden = nn.Sequential(nn.Linear(512, args.hidden_dims),
-                                nn.ReLU(True),
-                                nn.Dropout(args.dropout))
-    self.hidden.apply(Xavier)
-    self.pretrained.fc = self.hidden
+    # self.hidden = nn.Sequential(nn.Linear(512, args.hidden_dims),
+    #                             nn.ReLU(True),
+    #                             nn.Dropout(args.dropout))
+    # self.hidden.apply(Xavier)
+    # self.pretrained.fc = nn.Sequential(nn.Linear(512, args.hidden_dims),
+    #                             nn.ReLU(True),
+    #                             nn.Dropout(args.dropout))
 
 
     # == Classifier ========================
