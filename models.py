@@ -39,8 +39,8 @@ class MyPretrainedResnet18(nn.Module):
     
   def forward(self, samples):
     # x = samples.view(samples.size(0), -1)
-    x = self.pretrained(samples)
-    features = self.hidden(x)
+    features = self.pretrained(samples)
+    # features = self.hidden(x)
     outputs = self.linear(features)
     return outputs, features
 
