@@ -3,7 +3,7 @@ import torch
 import argparse
 import numpy as np
 
-from models import MLP
+from models import MLP, MyPretrainedResnet18
 from losses import MetricLoss
 from trainer import prequential_learn
 from learners.pt_learner import PtLearner
@@ -20,6 +20,7 @@ parser.add_argument(
     'mnist',
     'permutedmnist',
     'rotatedmnist',
+    'fmnist'
   ],
   default='permutedmnist',
   help=''
@@ -98,7 +99,8 @@ if not os.path.exists(args.save):
   os.makedirs(args.save)
 
 ## == Model ============================
-model = MLP(784, args)
+# model = MLP(784, args)
+model = MyPretrainedResnet18(args)
 model.to(device)
 print(model)
 
