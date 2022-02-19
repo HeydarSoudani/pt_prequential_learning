@@ -73,7 +73,7 @@ args = parser.parse_args()
 args.n_classes = 10
 
 ## == additional params ================
-if args.dataset in ['mnist', 'permutedmnist']:
+if args.dataset in ['mnist', 'permutedmnist', 'fmnist']:
   args.chunk_num = 70
 elif args.dataset in ['rotatedmnist']:
   args.chunk_num = 65
