@@ -1,4 +1,4 @@
-from torch.optim import SGD
+from torch.optim import SGD, Adam
 from torch.utils.data import DataLoader
 import time
 
@@ -11,7 +11,8 @@ def train(model,
   train_dataloader = DataLoader(dataset=dataset, batch_size=args.batch_size, shuffle=True)
 
   ## == Learn model ==============
-  optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+  # optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+  optim = Adam(model.parameters(), lr=args.lr)
 
   global_time = time.time()
   min_loss = float('inf')
@@ -20,11 +21,9 @@ def train(model,
       print('=== Epoch {} ==='.format(epoch_item+1))
       train_loss = 0.
       for i, batch in enumerate(train_dataloader):
-        
         loss = learner.train(model, batch, optim, args)
         train_loss += loss
-
-      print('train_loss: {:.4f}'.format(train_loss))
+      # print('train_loss: {:.4f}'.format(train_loss))
 
   except KeyboardInterrupt:
     print('skipping training')  
