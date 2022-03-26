@@ -32,7 +32,7 @@ if not os.path.exists(args.saved):
 if __name__ == '__main__':
   ## ========================================
   # == Get MNIST dataset ====================
-  if args.dataset == 'mnist':
+  if args.dataset in ['mnist', 'permuted_mnist']:
     train_data = pd.read_csv(os.path.join(args.data_path, "mnist_train.csv"), sep=',').values
     test_data = pd.read_csv(os.path.join(args.data_path, "mnist_test.csv"), sep=',').values
     X_train, y_train = train_data[:, 1:], train_data[:, 0]
