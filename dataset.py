@@ -19,7 +19,6 @@ class ChunkDataset(Dataset):
       self.tensor_view = (3, 32, 32)
     self.transforms = transforms
     self.data = []
-    print(data.shape)
     # self.labels = np.argmax(data[:, -1], axis=1)
     self.labels = data[:, -1]
     self.label_set = set(self.labels)
