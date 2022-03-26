@@ -47,7 +47,7 @@ parser.add_argument('--dropout', type=float, default=0.2, help='')
 parser.add_argument('--hidden_dims', type=int, default=128, help='')
 
 # Prototype
-parser.add_argument('--beta', type=float, default=0.0, help='Update Prototype in Prototypical algorithm')
+parser.add_argument('--beta', type=float, default=1.0, help='Update Prototype in Prototypical algorithm')
 
 # Loss function
 parser.add_argument("--lambda_1", type=float, default=1.0, help="Metric Coefficien in loss function")
