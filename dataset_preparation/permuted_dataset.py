@@ -14,13 +14,13 @@ parser.add_argument('--saved', type=str, default='./dataset/', help='')
 args = parser.parse_args()
 
 # = Add some variables to args =========
-if args.dataset in ['mnist', 'permuted_mnist']:
-  args.data_path = 'data/mnist'
 args.dataset_file = 'permuted_{}.csv'.format(args.dataset)
 
-if args.dataset in ['mnist']:
+if args.dataset in ['mnist', 'permuted_mnist']:
+  args.data_path = 'data/mnist'
   args.n_chunk = 70
   args.chunk_size = 1000
+
 
 ## == Apply seed =======================
 np.random.seed(args.seed)
