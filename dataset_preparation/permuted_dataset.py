@@ -9,8 +9,8 @@ import os
 parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', type=str, default='mnist', help='') #[mnist, fmnist, cifar10, cifar100, mini_imagenet]
 parser.add_argument('--n_drift', type=int, default=3, help='')
-parser.add_argument('--seed', type=int, default=2, help='')
 parser.add_argument('--saved', type=str, default='./dataset/', help='')
+parser.add_argument('--seed', type=int, default=1, help='')
 args = parser.parse_args()
 
 # = Add some variables to args =========
