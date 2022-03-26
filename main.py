@@ -18,11 +18,11 @@ parser.add_argument(
   type=str,
   choices=[
     'mnist',
-    'permutedmnist',
-    'rotatedmnist',
+    'permuted_mnist',
+    'rotated_mnist',
     'fmnist'
   ],
-  default='permutedmnist',
+  default='permuted_mnist',
   help=''
 )
 parser.add_argument(
@@ -70,13 +70,12 @@ parser.add_argument('--save', type=str, default='saved/', help='')
 
 args = parser.parse_args()   
 
-args.n_classes = 10
-
 ## == additional params ================
-if args.dataset in ['mnist', 'permutedmnist', 'fmnist']:
-  args.chunk_num = 70
+args.n_classes = 10
+if args.dataset in ['mnist', 'permuted_mnist']:
+  args.n_chunk = 70
 elif args.dataset in ['rotatedmnist']:
-  args.chunk_num = 65
+  args.n_chunk = 65
 
 ## == Device ===========================
 if torch.cuda.is_available():
@@ -99,8 +98,8 @@ if not os.path.exists(args.save):
   os.makedirs(args.save)
 
 ## == Model ============================
-# model = MLP(784, args)
-model = MyPretrainedResnet18(args)
+model = MLP(784, args)
+# model = MyPretrainedResnet18(args)
 # model = Conv_4(args)
 model.to(device)
 print(model)

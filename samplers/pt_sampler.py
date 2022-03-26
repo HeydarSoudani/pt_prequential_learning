@@ -35,8 +35,6 @@ class PtSampler(Sampler):
         self.n_query = n_query
         self.n_tasks = n_tasks
 
-        print(self.n_way)
-
         self.items_per_label = {}
         assert hasattr(
             dataset, "labels"
@@ -47,8 +45,8 @@ class PtSampler(Sampler):
             else:
                 self.items_per_label[label] = [item]
         
-        for label, items in self.items_per_label.items():
-            print('label: {}, item: {}'.format(label, len(items))) 
+        # for label, items in self.items_per_label.items():
+        #     print('label: {}, item: {}'.format(label, len(items))) 
 
     def __len__(self):
         return self.n_tasks

@@ -12,7 +12,6 @@ def Xavier(m):
     if m.bias is not None:
       m.bias.data.fill_(0.0)
 
-
 class MyPretrainedResnet18(nn.Module):
   def __init__(self, args, bias=True):
     super(MyPretrainedResnet18, self).__init__()
@@ -71,7 +70,6 @@ class MyPretrainedResnet18(nn.Module):
     state_dict = torch.load(path)
     self.load_state_dict(state_dict)
 
-
 class MLP(nn.Module):
   def __init__(self, n_input, args, bias=True):
     super(MLP, self).__init__()
@@ -107,8 +105,6 @@ class MLP(nn.Module):
   def load(self, path):
     state_dict = torch.load(path)
     self.load_state_dict(state_dict)
-
-
 
 class Conv_4(nn.Module):
 	def __init__(self, args):

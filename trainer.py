@@ -9,8 +9,9 @@ from trainers.episodic_train import train as episodic_train
 
 def prequential_learn(model, learner, args, device):
 
-  dist_accs = []  
-  for chunk_idx in range(args.chunk_num):
+  cls_accs = []
+  dist_accs = []
+  for chunk_idx in range(args.n_chunk):
     print('=== Chunk {} ============'.format(chunk_idx+1))
     
     # == Define Dataset & test Dataloder ========
@@ -28,9 +29,10 @@ def prequential_learn(model, learner, args, device):
                                               test_dataloader,
                                               known_labels)
       print('Dist: {:.4f}, Cls: {}'.format(acc_dis, acc_cls))
+      cls_accs.append(acc_cls)
       dist_accs.append(acc_dis)
     # == training =======================
-    if chunk_idx != args.chunk_num-1 :
+    if chunk_idx != args.n_chunk-1 :
       
       ### == Train Model (Batch) ===========
       if args.algorithm == 'batch':
@@ -53,7 +55,11 @@ def prequential_learn(model, learner, args, device):
       learner.calculate_prototypes(model, test_dataloader, args)
   
   ## Overal evaluation
+  print(dist_accs)
   dist_accs = np.array(dist_accs)
-  print('Classification rate: ({:.3f}, {:.3f})'.format(np.mean(dist_accs), np.std(dist_accs)))
+  print('Classification rate (dist): ({:.3f}, {:.3f})'.format(np.mean(dist_accs), np.std(dist_accs)))
 
+  print(cls_accs)
+  cls_accs = np.array(cls_accs)
+  print('Classification rate (cls): ({:.3f}, {:.3f})'.format(np.mean(cls_accs), np.std(cls_accs)))
 
