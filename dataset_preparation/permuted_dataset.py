@@ -14,7 +14,8 @@ parser.add_argument('--saved', type=str, default='./dataset/', help='')
 args = parser.parse_args()
 
 # = Add some variables to args =========
-args.data_path = 'data/{}'.format(args.dataset)
+if args.dataset in ['mnist', 'permuted_mnist']:
+  args.data_path = 'data/mnist'
 args.dataset_file = 'permuted_{}.csv'.format(args.dataset)
 
 if args.dataset in ['mnist']:
