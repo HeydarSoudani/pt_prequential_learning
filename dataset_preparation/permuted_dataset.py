@@ -16,7 +16,7 @@ args = parser.parse_args()
 # = Add some variables to args =========
 args.dataset_file = 'permuted_{}.csv'.format(args.dataset)
 
-if args.dataset in ['mnist', 'permuted_mnist']:
+if args.dataset == 'mnist':
   args.data_path = 'data/mnist'
   args.n_chunk = 70
   args.chunk_size = 1000
@@ -33,7 +33,7 @@ if not os.path.exists(args.saved):
 if __name__ == '__main__':
   ## ========================================
   # == Get MNIST dataset ====================
-  if args.dataset in ['mnist', 'permuted_mnist']:
+  if args.dataset == 'mnist':
     train_data = pd.read_csv(os.path.join(args.data_path, "mnist_train.csv"), sep=',').values
     test_data = pd.read_csv(os.path.join(args.data_path, "mnist_test.csv"), sep=',').values
     X_train, y_train = train_data[:, 1:], train_data[:, 0]
