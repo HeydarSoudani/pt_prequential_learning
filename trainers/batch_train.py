@@ -1,4 +1,4 @@
-from torch.optim import SGD, Adam
+from torch.optim import Adam
 from torch.utils.data import DataLoader
 import time
 
@@ -11,7 +11,6 @@ def train(model,
   train_dataloader = DataLoader(dataset=dataset, batch_size=args.batch_size, shuffle=True)
 
   ## == Learn model ==============
-  # optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
   optim = Adam(model.parameters(), lr=args.lr)
 
   global_time = time.time()

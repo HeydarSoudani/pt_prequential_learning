@@ -29,7 +29,6 @@ def train(model,
   ## == Learn model ==============
   optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
 
-  global_time = time.time()
   min_loss = float('inf')
   try:
     for epoch_item in range(args.start_epoch, args.epochs):
@@ -44,17 +43,13 @@ def train(model,
 
         ## == validation ==============
         if (miteration_item + 1) % args.log_interval == 0:
-          
           train_loss_total = train_loss / args.log_interval
           train_loss = 0.0
 
           # evalute on val_dataset
           # ...
-
-          print('=== Time: %.2f, Step: %d, Train Loss: %f' % (
-            time.time()-global_time, miteration_item+1, train_loss_total))
+          print('=== Step: %d, Train Loss: %f' % (miteration_item+1, train_loss_total))
           
-          global_time = time.time()
   
   except KeyboardInterrupt:
     print('skipping training')  
