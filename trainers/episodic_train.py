@@ -33,7 +33,7 @@ def train(model,
   try:
     for epoch_item in range(args.start_epoch, args.epochs):
       # print('=== Epoch %d ===' % epoch_item)
-      train_loss = 0.
+      train_loss = 0.0
       trainloader = iter(train_dataloader)
 
       for miteration_item in range(args.meta_iteration):
@@ -50,6 +50,5 @@ def train(model,
           # ...
           print('=== Step: %d, Train Loss: %f' % (miteration_item+1, train_loss_total))
           
-  
   except KeyboardInterrupt:
     print('skipping training')  
