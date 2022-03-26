@@ -150,14 +150,9 @@ class PtLearner:
       all_labels = torch.cat(all_labels, dim=0)
       
       unique_labels = torch.unique(all_labels)
-      current_prototypes = compute_prototypes(all_features, all_labels)
-      old_prototypes = torch.cat(
-        [self.prototypes[l.item()] for l in unique_labels]
-      )
-      new_prototypes = args.beta * current_prototypes + (1 - args.beta) * old_prototypes
-    
+      pts = compute_prototypes(all_features, all_labels)
       for idx, l in enumerate(unique_labels):
-        self.prototypes[l.item()] = new_prototypes[idx].reshape(1, -1).detach()
+        self.prototypes[l.item()] = pts[idx].reshape(1, -1).detach()
   
   def load(self, pkl_path):
     self.__dict__.update(torch.load(pkl_path))
