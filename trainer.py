@@ -25,18 +25,17 @@ def prequential_learn(model, learner, args, device):
     test_dataloader = DataLoader(dataset=dataset, batch_size=1000, shuffle=False)
     # print('Chunk labels: {}'.format(dataset.label_set))
 
-    # == testing ========================
-    if chunk_idx != 0:
-      
-      known_labels = dataset.label_set
-      test_start = time.time()
-      _, acc_dis, acc_cls = learner.evaluate(model,
-                                              test_dataloader,
-                                              known_labels)
-      test_time.append(time.time() - test_start)
-      print('Dist: {:.4f}, Cls: {}'.format(acc_dis, acc_cls))
-      cls_accs.append(acc_cls)
-      dist_accs.append(acc_dis)
+    # == testing ========================   
+    known_labels = dataset.label_set
+    test_start = time.time()
+    _, acc_dis, acc_cls = learner.evaluate(model,
+                                            test_dataloader,
+                                            known_labels)
+    test_time.append(time.time() - test_start)
+    print('Dist: {:.4f}, Cls: {}'.format(acc_dis, acc_cls))
+    cls_accs.append(acc_cls)
+    dist_accs.append(acc_dis)
+    
     # == training =======================
     if chunk_idx != args.n_chunk-1 :
       train_start = time.time()
