@@ -78,7 +78,7 @@ class MLP(nn.Module):
     self.hidden = nn.Sequential(nn.Linear(n_input, 100),
                                 nn.ReLU(True),
                                 nn.Dropout(args.dropout),
-                                nn.Linear(256, args.hidden_dims),
+                                nn.Linear(100, args.hidden_dims),
                                 nn.ReLU(True),
                                 nn.Dropout(args.dropout))
     # self.hidden = nn.Sequential(nn.Linear(n_input, args.hidden_dims),
