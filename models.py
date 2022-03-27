@@ -75,10 +75,10 @@ class MLP(nn.Module):
     super(MLP, self).__init__()
     self.device = None
 
-    self.hidden = nn.Sequential(nn.Linear(n_input, 100),
+    self.hidden = nn.Sequential(nn.Linear(n_input, 256),
                                 nn.ReLU(True),
                                 nn.Dropout(args.dropout),
-                                nn.Linear(100, args.hidden_dims),
+                                nn.Linear(256, args.hidden_dims),
                                 nn.ReLU(True),
                                 nn.Dropout(args.dropout))
     # self.hidden = nn.Sequential(nn.Linear(n_input, args.hidden_dims),

@@ -60,6 +60,11 @@ parser.add_argument('--momentum', type=float, default=0.9, help='')
 parser.add_argument('--wd', type=float, default=1e-4, help='')  #l2 regularization
 parser.add_argument('--grad_clip', type=float, default=0.1)   # before was 5.0
 
+# Scheduler
+parser.add_argument("--scheduler", action="store_true", help="use scheduler")
+parser.add_argument("--step_size", default=8, type=int)
+parser.add_argument('--gamma', type=float, default=0.5, help='for lr step')
+
 # Device and Randomness
 parser.add_argument('--cuda', action='store_true',help='use CUDA')
 parser.add_argument('--seed', type=int, default=2, help='')

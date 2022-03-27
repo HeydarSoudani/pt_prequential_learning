@@ -1,5 +1,6 @@
 from torch.optim import SGD
 from torch.utils.data import DataLoader
+from torch.optim.lr_scheduler import StepLR
 import time
 
 from samplers.pt_sampler import PtSampler
@@ -9,6 +10,7 @@ def train(model,
           learner,
           dataset,
           args, device):
+  model.to(device)
   
   ## == Episodic loader ==========
   sampler = PtSampler(
@@ -28,6 +30,11 @@ def train(model,
 
   ## == Learn model ==============
   optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+  scheduler = StepLR(
+    optim,
+    step_size=args.step_size,
+    gamma=args.gamma,
+  )
 
   min_loss = float('inf')
   try:
@@ -45,10 +52,12 @@ def train(model,
         if (miteration_item + 1) % args.log_interval == 0:
           train_loss_total = train_loss / args.log_interval
           train_loss = 0.0
-
           # evalute on val_dataset
           # ...
           print('=== Step: %d, Train Loss: %f' % (miteration_item+1, train_loss_total))
-          
+        
+        if args.scheduler:
+          scheduler.step()
+  
   except KeyboardInterrupt:
     print('skipping training')  
