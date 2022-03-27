@@ -1,7 +1,6 @@
 
 import random
 from typing import List, Tuple
-
 import torch
 from torch.utils.data import Sampler, Dataset
 
@@ -44,9 +43,6 @@ class PtSampler(Sampler):
                 self.items_per_label[label].append(item)
             else:
                 self.items_per_label[label] = [item]
-        
-        # for label, items in self.items_per_label.items():
-        #     print('label: {}, item: {}'.format(label, len(items))) 
 
     def __len__(self):
         return self.n_tasks
