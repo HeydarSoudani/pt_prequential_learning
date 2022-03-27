@@ -67,7 +67,8 @@ if __name__ == '__main__':
   print('Change drift points: {}'.format(change_drift_points))
   r_data_list = []
   
-  angles = [0, 10, 20, 30, 40, 50, 60]
+  angles = [0, 20, 40, 60, 80, 100, 120]
+  # angles = [0, 10, 20, 30, 40, 50, 60]
   for idx, current_point in enumerate(change_drift_points + [args.n_chunk]):
     if idx == 0: pervious_point = 0
     else: pervious_point = change_drift_points[idx-1]  

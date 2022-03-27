@@ -71,10 +71,9 @@ args = parser.parse_args()
 
 ## == additional params ================
 args.n_classes = 10
-if args.dataset in ['mnist', 'permuted_mnist']:
-  args.n_chunk = 70
-elif args.dataset in ['rotatedmnist']:
-  args.n_chunk = 65
+args.n_chunk = 70
+# if args.dataset in ['mnist', 'permuted_mnist', 'rotated_mnist']:
+#   args.n_chunk = 70
 
 ## == Device ===========================
 if torch.cuda.is_available():
