@@ -16,11 +16,9 @@ args = parser.parse_args()
 
 # = Add some variables to args =========
 args.dataset_file = 'rotated_{}.csv'.format(args.dataset)
-
-if args.dataset == 'mnist':
-  args.data_path = 'data/mnist'
-  args.n_chunk = 70
-  args.chunk_size = 1000
+args.data_path = 'data/{}'.format(args.dataset)
+args.n_chunk = 70
+args.chunk_size = 1000
 
 
 ## == Apply seed =======================
