@@ -13,7 +13,7 @@ def onehot2index(data):
 class ChunkDataset(Dataset):
   def __init__(self, data, args, transforms=None):
   
-    if args.dataset in ['mnist', 'permuted_mnist', 'rotated_mnist', 'fmnist']:
+    if args.dataset in ['mnist', 'permuted_mnist', 'rotated_mnist', 'fmnist', 'permuted_fmnist', 'rotated_fmnist']:
       self.tensor_view = (1, 28, 28)
     elif args.dataset in ['cifar10', 'cifar100']:
       self.tensor_view = (3, 32, 32)
