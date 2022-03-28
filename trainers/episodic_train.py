@@ -1,4 +1,4 @@
-from torch.optim import SGD
+from torch.optim import SGD, Adam
 from torch.utils.data import DataLoader
 from torch.optim.lr_scheduler import StepLR
 import time
@@ -29,7 +29,8 @@ def train(model,
   )
 
   ## == Learn model ==============
-  optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+  # optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+  optim = Adam(model.parameters(), lr=args.lr)
   scheduler = StepLR(
     optim,
     step_size=args.step_size,
