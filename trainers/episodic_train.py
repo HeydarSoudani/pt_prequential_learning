@@ -29,8 +29,8 @@ def train(model,
   )
 
   ## == Learn model ==============
-  # optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
-  optim = Adam(model.parameters(), lr=args.lr)
+  optim = SGD(model.parameters(), lr=args.lr, momentum=args.momentum)
+  # optim = Adam(model.parameters(), lr=args.lr)
   scheduler = StepLR(
     optim,
     step_size=args.step_size,

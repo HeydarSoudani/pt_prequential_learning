@@ -24,7 +24,6 @@ def compute_prototypes(
 class PtLearner:
   def __init__(self, criterion, device, args):
     self.criterion = criterion
-    # self.criterion = torch.nn.CrossEntropyLoss()
     self.device = device
 
     self.prototypes = {
