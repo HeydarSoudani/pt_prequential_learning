@@ -19,7 +19,10 @@ parser.add_argument(
   choices=[
     'mnist',
     'permuted_mnist',
-    'rotated_mnist'
+    'rotated_mnist',
+    'fmnist',
+    'permuted_fmnist',
+    'rotated_fmnist'
   ],
   default='permuted_mnist',
   help=''
