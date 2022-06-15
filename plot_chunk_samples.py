@@ -42,7 +42,7 @@ if __name__ == '__main__':
   change_drift_points = list(np.sort(change_drift_points))
   print('Change drift points: {}'.format(change_drift_points))
   
-  fig, axs = plt.subplots(args.n_drift,)
+  fig, axs = plt.subplots(args.n_drift+1,)
 
   for idx, current_point in enumerate(change_drift_points + [args.n_chunk]):
     if idx == 0: pervious_point = 0
