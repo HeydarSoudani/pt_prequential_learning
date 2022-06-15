@@ -80,4 +80,5 @@ if __name__ == '__main__':
     axs[int(idx/args.n_classes)][idx%args.n_classes].imshow(grid_imgs.permute(1, 2, 0))
     print('Change {} done!'.format(idx+1))
   
+  fig.savefig('samples.png', format='png', dpi=800)
   plt.show()
