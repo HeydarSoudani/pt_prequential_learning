@@ -14,34 +14,21 @@ from samplers.pt_sampler import PtSampler
 
 ## == Params ==========================
 parser = argparse.ArgumentParser()
-parser.add_argument('--n_tasks', type=int, default=5, help='')
-parser.add_argument(
-  '--dataset',
-  type=str,
-  choices=[
-    'mnist',
-    'permutedmnist',
-    'rotatedmnist',
-    'fmnist'
-  ],
-  default='permutedmnist',
-  help='')
-parser.add_argument('--seed', type=int, default=5, help='')
+parser.add_argument('--dataset', type=str, default='permuted_mnist', help='') #[permuted_mnist, permuted_fmnist, rotated_mnist, rotated_fmnist]
+parser.add_argument('--n_drift', type=int, default=3, help='')
+parser.add_argument('--saved', type=str, default='./dataset/', help='')
+parser.add_argument('--seed', type=int, default=1, help='')
 args = parser.parse_args()
 
 ## == additional params ===============
 args.dataset_path = 'dataset/{}.csv'.format(args.dataset)
+args.n_chunk = 70
+args.chunk_size = 1000
 args.n_classes = 10
-
-if args.dataset in ['mnist', 'permutedmnist', 'fmnist']:
-  args.chunk_num = 70
-elif args.dataset in ['rotatedmnist']:
-  args.chunk_num = 65
 
 ## == Apply seed ======================
 torch.manual_seed(args.seed)
 np.random.seed(args.seed)
-
 
 def imshow(imgs):
   # imgs *= 255.0
@@ -50,22 +37,26 @@ def imshow(imgs):
   plt.show()
 
 
-def show_samples():
+if __name__ == '__main__':
+  change_drift_points = np.random.choice(np.arange(5, args.n_chunk-5), args.n_drift, replace=False)
+  change_drift_points = list(np.sort(change_drift_points))
+  print('Change drift points: {}'.format(change_drift_points))
   
-  fig, axs = plt.subplots(3, 10)
-  ## == Chunk-based version ================
-  for index, chunk_idx in enumerate(range(30)):
-    print('== Chunk {} =='.format(chunk_idx+1))
+  fig, axs = plt.subplots(args.n_drift, args.n_classes)
+
+  for idx, current_point in enumerate(change_drift_points + [args.n_chunk]):
+    if idx == 0: pervious_point = 0
+    else: pervious_point = change_drift_points[idx-1]
     
     # == Define Dataset & test Dataloder ========
     data = read_csv(args.dataset_path, sep=',', header=None).values 
-    chunk_data = data[chunk_idx*1000:(chunk_idx+1)*1000]
+    chunk_data = data[pervious_point*args.chunk_size:current_point*args.chunk_size]
     dataset = ChunkDataset(chunk_data, args)
     print('Chunk labels: {}'.format(dataset.label_set))
 
     sampler = PtSampler(
       dataset,
-      n_way=10,
+      n_way=args.n_classes,
       n_shot=1,
       n_query=0,
       n_tasks=1)
@@ -83,13 +74,10 @@ def show_samples():
     # imshow(support_images)
     grid_imgs = torchvision.utils.make_grid(torch.tensor(support_images), nrow=10)
     
-    axs[int(index/10)][index%10].set_title('chunk {}'.format(chunk_idx+1))
-    axs[int(index/10)][index%10].set_xticks([])
-    axs[int(index/10)][index%10].set_yticks([])
-    axs[int(index/10)][index%10].imshow(grid_imgs.permute(1, 2, 0))
-    print('Chunk {} done!'.format(chunk_idx+1))
+    axs[int(idx/args.n_classes)][idx%args.n_classes].set_title('change {}'.format(idx+1))
+    axs[int(idx/args.n_classes)][idx%args.n_classes].set_xticks([])
+    axs[int(idx/args.n_classes)][idx%args.n_classes].set_yticks([])
+    axs[int(idx/args.n_classes)][idx%args.n_classes].imshow(grid_imgs.permute(1, 2, 0))
+    print('Change {} done!'.format(idx+1))
   
   plt.show()
-
-if __name__ == '__main__':
-  show_samples()

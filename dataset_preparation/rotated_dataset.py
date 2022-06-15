@@ -20,7 +20,6 @@ args.data_path = 'data/{}'.format(args.dataset)
 args.n_chunk = 70
 args.chunk_size = 1000
 
-
 ## == Apply seed =======================
 np.random.seed(args.seed)
 
@@ -54,12 +53,10 @@ if __name__ == '__main__':
   test_data = np.concatenate((X_test, y_test.reshape(-1, 1)), axis=1)
   all_data = np.concatenate((train_data, test_data), axis=0)
   np.random.shuffle(all_data)
-
   all_images = all_data[:, :-1]
   all_labels = all_data[:, -1]
   n_feature = all_images.shape[1]
 
-  ### === Permuted dataset (Vector) =========
   change_drift_points = np.random.choice(np.arange(5, args.n_chunk-5), args.n_drift, replace=False)
   change_drift_points = list(np.sort(change_drift_points))
   print('Change drift points: {}'.format(change_drift_points))
@@ -95,8 +92,6 @@ if __name__ == '__main__':
         all_labels[pervious_point*args.chunk_size:current_point*args.chunk_size].reshape(-1, 1)
       ), axis=1)
     )
-
-
 
   r_all_data = np.concatenate(r_data_list, axis=0)
   pd.DataFrame(r_all_data).to_csv(os.path.join(args.saved, args.dataset_file),
