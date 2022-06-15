@@ -42,7 +42,7 @@ if __name__ == '__main__':
   change_drift_points = list(np.sort(change_drift_points))
   print('Change drift points: {}'.format(change_drift_points))
   
-  fig, axs = plt.subplots(args.n_drift, args.n_classes)
+  fig, axs = plt.subplots(args.n_drift,)
 
   for idx, current_point in enumerate(change_drift_points + [args.n_chunk]):
     if idx == 0: pervious_point = 0
@@ -74,10 +74,10 @@ if __name__ == '__main__':
     # imshow(support_images)
     grid_imgs = torchvision.utils.make_grid(torch.tensor(support_images), nrow=10)
     
-    axs[int(idx/args.n_classes)][idx%args.n_classes].set_title('change {}'.format(idx+1))
-    axs[int(idx/args.n_classes)][idx%args.n_classes].set_xticks([])
-    axs[int(idx/args.n_classes)][idx%args.n_classes].set_yticks([])
-    axs[int(idx/args.n_classes)][idx%args.n_classes].imshow(grid_imgs.permute(1, 2, 0))
+    axs[idx].set_title('change {}'.format(idx+1))
+    axs[idx].set_xticks([])
+    axs[idx].set_yticks([])
+    axs[idx].imshow(grid_imgs.permute(1, 2, 0))
     print('Change {} done!'.format(idx+1))
   
   fig.savefig('samples.png', format='png', dpi=800)
