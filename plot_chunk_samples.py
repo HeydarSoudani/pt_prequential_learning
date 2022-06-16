@@ -77,9 +77,9 @@ if __name__ == '__main__':
     
     # For rotation
     angles = [0, 20, 40, 60, 80, 100, 120]
-    axs[idx].set_ylabel('rotate {}'.format(angles[idx]), fontsize=9, rotation=45)
+    axs[idx].set_title('rotation {}$^\circ$'.format(angles[idx]), fontsize=9)
     # For permutation
-    # axs[idx].set_ylabel('permute {}'.format(idx+1), fontsize=9)
+    # axs[idx].set_ylabel('permutation {}'.format(idx+1), fontsize=9)
 
     axs[idx].set_xticks([])
     axs[idx].set_yticks([])
