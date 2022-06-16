@@ -76,7 +76,12 @@ if __name__ == '__main__':
     # imshow(support_images)
     grid_imgs = torchvision.utils.make_grid(torch.tensor(support_images), nrow=10)
     
-    axs[idx].set_title('change {}'.format(idx+1))
+    # For rotation
+    angles = [0, 20, 40, 60, 80, 100, 120]
+    axs[idx].set_ylabel('rotate {}'.format(angles[idx]), fontsize=12)
+    # For permutation
+    axs[idx].set_ylabel('permute {}'.format(idx+1), fontsize=12)
+
     axs[idx].set_xticks([])
     axs[idx].set_yticks([])
     axs[idx].imshow(grid_imgs.permute(1, 2, 0))
