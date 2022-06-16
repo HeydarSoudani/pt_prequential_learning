@@ -17,6 +17,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--dataset', type=str, default='permuted_mnist', help='') #[permuted_mnist, permuted_fmnist, rotated_mnist, rotated_fmnist]
 parser.add_argument('--n_drift', type=int, default=3, help='')
 parser.add_argument('--saved', type=str, default='./dataset/', help='')
+parser.add_argument('--change_points', type=str, default='1,2,3', help='')
 parser.add_argument('--seed', type=int, default=1, help='')
 args = parser.parse_args()
 
@@ -27,8 +28,8 @@ args.chunk_size = 1000
 args.n_classes = 10
 
 ## == Apply seed ======================
-torch.manual_seed(args.seed)
 np.random.seed(args.seed)
+torch.manual_seed(args.seed)
 
 def imshow(imgs):
   # imgs *= 255.0
@@ -38,8 +39,9 @@ def imshow(imgs):
 
 
 if __name__ == '__main__':
-  change_drift_points = np.random.choice(np.arange(5, args.n_chunk-5), args.n_drift, replace=False)
-  change_drift_points = list(np.sort(change_drift_points))
+  # change_drift_points = np.random.choice(np.arange(5, args.n_chunk-5), args.n_drift, replace=False)
+  # change_drift_points = list(np.sort(change_drift_points))
+  change_drift_points = [int(item) for item in args.change_points.split(',')]
   print('Change drift points: {}'.format(change_drift_points))
   
   fig, axs = plt.subplots(args.n_drift+1,)
