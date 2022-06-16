@@ -62,35 +62,35 @@ if __name__ == '__main__':
   p_data_list = []
 
   # = For Image version
-  tensor_view = (1, 28, 28)
-  all_images_tensor = torch.tensor(all_images, dtype=torch.float).view((all_images.shape[0], *tensor_view))
+  # tensor_view = (1, 28, 28)
+  # all_images_tensor = torch.tensor(all_images, dtype=torch.float).view((all_images.shape[0], *tensor_view))
   
   for idx, current_point in enumerate(change_drift_points + [args.n_chunk]):
     if idx == 0: pervious_point = 0
     else: pervious_point = change_drift_points[idx-1]
 
     ### === Permuted dataset (Vector) ==============
-    # perm = torch.randperm(n_feature)
-    # p_data_list.append(
-    #   np.concatenate((
-    #     all_images[pervious_point*args.chunk_size:current_point*args.chunk_size, perm],
-    #     all_labels[pervious_point*args.chunk_size:current_point*args.chunk_size].reshape(-1, 1)
-    #   ), axis=1)
-    # )
-  
-    ### === Permuted dataset (Image) ===============
-    if idx % 2 == 0: # for even task -> col permuted
-      perm = torch.randperm(all_images_tensor.shape[3])
-      perm_images = all_images_tensor[pervious_point*args.chunk_size:current_point*args.chunk_size, :, :, perm].clone().detach().numpy()
-    else: # for odd task -> row permuted
-      perm = torch.randperm(all_images_tensor.shape[2])
-      perm_images = all_images_tensor[pervious_point*args.chunk_size:current_point*args.chunk_size, :, perm, :].clone().detach().numpy()
+    perm = torch.randperm(n_feature)
     p_data_list.append(
       np.concatenate((
-        perm_images.reshape(perm_images.shape[0], -1),
+        all_images[pervious_point*args.chunk_size:current_point*args.chunk_size, perm],
         all_labels[pervious_point*args.chunk_size:current_point*args.chunk_size].reshape(-1, 1)
       ), axis=1)
     )
+  
+    ### === Permuted dataset (Image) ===============
+    # if idx % 2 == 0: # for even task -> col permuted
+    #   perm = torch.randperm(all_images_tensor.shape[3])
+    #   perm_images = all_images_tensor[pervious_point*args.chunk_size:current_point*args.chunk_size, :, :, perm].clone().detach().numpy()
+    # else: # for odd task -> row permuted
+    #   perm = torch.randperm(all_images_tensor.shape[2])
+    #   perm_images = all_images_tensor[pervious_point*args.chunk_size:current_point*args.chunk_size, :, perm, :].clone().detach().numpy()
+    # p_data_list.append(
+    #   np.concatenate((
+    #     perm_images.reshape(perm_images.shape[0], -1),
+    #     all_labels[pervious_point*args.chunk_size:current_point*args.chunk_size].reshape(-1, 1)
+    #   ), axis=1)
+    # )
   
   p_all_data = np.concatenate(p_data_list, axis=0)
   pd.DataFrame(p_all_data).to_csv(os.path.join(args.saved, args.dataset_file),
